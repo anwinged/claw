@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Claw;
 
+use Claw\Action\Index;
 use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
@@ -25,20 +28,20 @@ class App
         self::initAppServices($this->container);
     }
 
-    public function get($path, callable $callback)
+    public function get($path, $action)
     {
-        $this->route('GET', $path, $callback);
+        $this->route('GET', $path, $action);
     }
 
-    public function post($path, callable $callback)
+    public function post($path, $action)
     {
-        $this->route('POST', $path, $callback);
+        $this->route('POST', $path, $action);
     }
 
-    public function route($method, $path, callable $callback)
+    public function route($method, $path, $action)
     {
         $router = $this->container['router'];
-        $router->registerRoute($method, $path, $callback);
+        $router->registerRoute($method, $path, $action);
     }
 
     public function respond()
@@ -57,8 +60,19 @@ class App
             return;
         }
 
-        $callback = $route->getCallback();
-        $response = call_user_func($callback, $request, $this->container);
+        $action = $route->getAction();
+
+        if (!isset($this->container[$action])) {
+            throw new \RuntimeException();
+        }
+
+        $actionService = $this->container[$action];
+
+        if (!($actionService instanceof ActionInterface)) {
+            throw new \RuntimeException();
+        }
+
+        $response = $actionService->run();
 
         if (!($response instanceof Response)) {
             throw new \Exception();
@@ -118,6 +132,10 @@ class App
 
         $container['searchProcessor'] = function ($c) {
             return new SearchProcessor($c['searcherFactory'], $c['pageLoader']);
+        };
+
+        $container['index'] = function ($c) {
+            return new Index($c['request'], $c['renderer'], $c['searchProcessor']);
         };
     }
 }

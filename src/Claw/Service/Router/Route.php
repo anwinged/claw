@@ -15,22 +15,22 @@ class Route
     private $path;
 
     /**
-     * @var callable
+     * @var string
      */
-    private $callback;
+    private $action;
 
     /**
      * Route constructor.
      *
-     * @param string   $method
-     * @param string   $path
-     * @param callable $callback
+     * @param string $method
+     * @param string $path
+     * @param string $action
      */
-    public function __construct($method, $path, callable $callback)
+    public function __construct(string $method, string $path, string $action)
     {
         $this->method = $method;
         $this->path = $path;
-        $this->callback = $callback;
+        $this->action = $action;
     }
 
     /**
@@ -50,10 +50,10 @@ class Route
     }
 
     /**
-     * @return callable
+     * @return string
      */
-    public function getCallback()
+    public function getAction()
     {
-        return $this->callback;
+        return $this->action;
     }
 }

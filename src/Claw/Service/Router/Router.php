@@ -15,11 +15,11 @@ class Router
     /**
      * @param string $method
      * @param string $path
-     * @param callable $callable
+     * @param string $action
      */
-    public function registerRoute($method, $path, callable $callable)
+    public function registerRoute(string $method, string $path, string $action)
     {
-        $this->routes[] = new Route($method, $path, $callable);
+        $this->routes[] = new Route($method, $path, $action);
     }
 
     /**

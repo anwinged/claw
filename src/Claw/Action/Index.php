@@ -3,27 +3,45 @@
  * Created by PhpStorm.
  * User: av
  * Date: 24.09.16
- * Time: 10:05
+ * Time: 15:06
  */
 
-namespace Claw\Controller;
+namespace Claw\Action;
 
 
+use Claw\ActionInterface;
 use Claw\Entity\SearchRequest;
 use Claw\Form\SearchRequestForm;
 use Claw\Service\SearchProcessor;
 use Claw\Validator\SearchRequestValidator;
-use Pimple\Container;
+use League\Plates\Engine;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Controller
+class Index implements ActionInterface
 {
-    public function index(Request $request, Container $container)
+    private $request;
+
+    private $renderer;
+
+    private $searchProcessor;
+
+    public function __construct(
+        Request $request,
+        Engine $renderer,
+        SearchProcessor $searchProcessor
+    )
+    {
+        $this->request = $request;
+        $this->renderer = $renderer;
+        $this->searchProcessor = $searchProcessor;
+    }
+
+    public function run()
     {
         $searchRequest = new SearchRequest();
         $searchRequestForm = new SearchRequestForm($searchRequest);
-        $searchRequestForm->handle($request);
+        $searchRequestForm->handle($this->request);
         $errors = [];
         $matches = [];
 
@@ -31,13 +49,12 @@ class Controller
             $searchRequestValidator = new SearchRequestValidator($searchRequest);
             $errors = $searchRequestValidator->validate();
             if (!$errors) {
-                /** @var SearchProcessor $searchRequestProcessor */
-                $searchRequestProcessor = $container['searchProcessor'];
-                $matches = $searchRequestProcessor->process($searchRequest);
+                /** @var SearchProcessor $searchProcessor */
+                $matches = $this->searchProcessor->process($searchRequest);
             }
         }
 
-        $content = $container['renderer']->render('index', [
+        $content = $this->renderer->render('index', [
             'searchRequest' => $searchRequest,
             'errors' => $errors,
             'matches' => $matches,
