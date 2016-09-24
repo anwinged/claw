@@ -1,0 +1,26 @@
+---
+- name: Appeng `vagrant` user to `adm` group
+  user:
+    name: vagrant
+    groups: vagrant,adm
+  become: yes
+
+- name: Set timezone to {{ timezone }}
+  template:
+    dest: /etc/timezone
+    src: timezone.j2
+  become: yes
+
+- name: Ensure that software is up to date
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - git-core
+    - unzip
+    - python-mysqldb
+    - curl
+    - libicu-dev
+  become: yes
+
+- name: Set default system language pack
+  shell: locale-gen {{ locale }}
+  become: yes

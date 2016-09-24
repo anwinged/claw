@@ -1,0 +1,18 @@
+---
+- name: Create databases
+  mysql_db:
+    name: "{{ db.name }}"
+    collation: utf8_general_ci
+    encoding: utf8
+    login_user: root
+
+- name: Create database users
+  mysql_user:
+    name: "{{ db.user }}"
+    password: "{{ db.pass }}"
+    priv: "{{ db.name }}.*:ALL"
+    host: '%'
+    login_user: root
+
+- name: Install project dependencies
+  composer: command=install no_dev=no working_dir={{ project_root }}

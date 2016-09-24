@@ -15,6 +15,7 @@ use Claw\Form\SearchRequestForm;
 use Claw\Service\SearchProcessor;
 use Claw\Validator\SearchRequestValidator;
 use League\Plates\Engine;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,6 +52,8 @@ class Index implements ActionInterface
             if (!$errors) {
                 /** @var SearchProcessor $searchProcessor */
                 $searchResult = $this->searchProcessor->process($searchRequest);
+
+                return new RedirectResponse('/view?id='.$searchResult->getId());
             }
         }
 

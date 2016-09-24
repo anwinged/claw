@@ -12,6 +12,11 @@ namespace Claw\Entity;
 class SearchResult
 {
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $type;
@@ -30,6 +35,22 @@ class SearchResult
      * @var string[]
      */
     private $matches = [];
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string

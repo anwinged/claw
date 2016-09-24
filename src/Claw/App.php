@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Claw;
 
 use Claw\Action\Index;
+use Claw\Action\View;
 use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
 use Claw\Service\SearchProcessor;
+use Claw\Storage\SearchResultStorage;
 use League\Plates\Engine;
 use League\Plates\Extension\Asset;
 use Pimple\Container;
@@ -130,12 +132,20 @@ class App
             return new PageLoader();
         };
 
+        $container['searchResultStorage'] = function () {
+            return new SearchResultStorage();
+        };
+
         $container['searchProcessor'] = function ($c) {
-            return new SearchProcessor($c['searcherFactory'], $c['pageLoader']);
+            return new SearchProcessor($c['searcherFactory'], $c['pageLoader'], $c['searchResultStorage']);
         };
 
         $container['index'] = function ($c) {
             return new Index($c['request'], $c['renderer'], $c['searchProcessor']);
+        };
+
+        $container['view'] = function ($c) {
+            return new View($c['request'], $c['renderer'], $c['searchResultStorage']);
         };
     }
 }

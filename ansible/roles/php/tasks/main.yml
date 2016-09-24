@@ -1,0 +1,44 @@
+---
+- name: Ensure that PHP PPA is added
+  apt_repository: repo=ppa:ondrej/php state=present
+  become: yes
+
+- name: Install PHP packages
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - php7.0-curl
+    - php7.0-gd
+    - php7.0-fpm
+    - php7.0-mbstring
+    - php7.0-mysql
+    - php7.0-xml
+    - php7.0-intl
+  become: yes
+
+- name: Set user and group of PHP-FPM process
+  ini_file:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    section: www
+    option: "{{ item }}"
+    value: vagrant
+  with_items:
+    - user
+    - group
+  become: yes
+  notify: restart PHP-FPM
+
+- name: Set PHP timezone to {{ timezone }}
+  ini_file:
+    dest: /etc/php/7.0/fpm/php.ini
+    section: Date
+    option: date.timezone
+    value: "{{ timezone }}"
+  become: yes
+  notify: restart PHP-FPM
+
+- name: Set dir permissions for {{ project_root }}
+  file:
+    dest: "{{ project_root }}"
+    mode: 0775
+    recurse: yes
+  notify: restart PHP-FPM

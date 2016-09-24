@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: no
+
+  vars:
+    app:
+      name: claw
+    db:
+      name: claw
+      user: claw
+      pass: claw
+    project_root: /vagrant
+    timezone: UTC
+    locale: en_US.UTF-8
+
+  roles:
+    - server
+    - nginx
+    - mysql
+    - php
+    - composer
+    - application

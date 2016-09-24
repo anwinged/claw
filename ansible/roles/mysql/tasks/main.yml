@@ -1,0 +1,11 @@
+---
+- name: Install MySql package
+  apt: name=mysql-server state=latest
+  become: yes
+
+- name: Append MySQL config file with overrides
+  template:
+    src: mysql.cnf.j2
+    dest: /etc/mysql/conf.d/mysql-vagrant.cnf
+  become: yes
+  notify: restart MySQL

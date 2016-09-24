@@ -1,0 +1,11 @@
+[mysqld]
+
+bind-address            = 0.0.0.0
+
+general_log_file        = /var/log/mysql/mysql.log
+general_log             = 0
+
+log_slow_queries        = /var/log/mysql/mysql-slow.log
+long_query_time         = 2
+
+# log-queries-not-using-indexes

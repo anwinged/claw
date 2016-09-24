@@ -1,0 +1,8 @@
+---
+- name: Ensure that composer is installed
+  shell: >
+    php -r "readfile('https://getcomposer.org/installer');" |
+    php -- --quiet --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+  become: yes

@@ -5,6 +5,7 @@ namespace Claw\Service;
 use Claw\Entity\SearchRequest;
 use Claw\Entity\SearchResult;
 use Claw\Service\Searcher\SearcherInterface;
+use Claw\Storage\SearchResultStorage;
 
 class SearchProcessor
 {
@@ -18,10 +19,20 @@ class SearchProcessor
      */
     private $pageLoader;
 
-    public function __construct(SearcherFactory $searcherFactory, PageLoader $pageRetriever)
+    /**
+     * @var SearchResultStorage
+     */
+    private $storage;
+
+    public function __construct(
+        SearcherFactory $searcherFactory,
+        PageLoader $pageRetriever,
+        SearchResultStorage $storage
+    )
     {
         $this->searcherFactory = $searcherFactory;
         $this->pageLoader = $pageRetriever;
+        $this->storage = $storage;
     }
 
     /**
@@ -44,6 +55,8 @@ class SearchProcessor
         $searchResult->setType($searchRequest->getType());
         $searchResult->setText($searchRequest->getText());
         $searchResult->setMatches($searcher->find($content));
+
+        $this->storage->insert($searchResult);
 
         return $searchResult;
     }
