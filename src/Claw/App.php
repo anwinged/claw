@@ -2,7 +2,10 @@
 
 namespace Claw;
 
+use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
+use Claw\Service\SearcherFactory;
+use Claw\Service\SearchProcessor;
 use League\Plates\Engine;
 use League\Plates\Extension\Asset;
 use Pimple\Container;
@@ -41,7 +44,6 @@ class App
     public function respond()
     {
         $request = $this->container['request'];
-        $response = $this->container['response'];
         $router = $this->container['router'];
 
         /** @var Router $router */
@@ -56,7 +58,7 @@ class App
         }
 
         $callback = $route->getCallback();
-        $response = call_user_func($callback, $request, $response, $this->container);
+        $response = call_user_func($callback, $request, $this->container);
 
         if (!($response instanceof Response)) {
             throw new \Exception();
@@ -104,6 +106,18 @@ class App
             $engine->loadExtension(new Asset($c['webPath']));
 
             return $engine;
+        };
+
+        $container['searcherFactory'] = function () {
+            return new SearcherFactory();
+        };
+
+        $container['pageLoader'] = function () {
+            return new PageLoader();
+        };
+
+        $container['searchProcessor'] = function ($c) {
+            return new SearchProcessor($c['searcherFactory'], $c['pageLoader']);
         };
     }
 }
