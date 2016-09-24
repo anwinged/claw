@@ -116,5 +116,27 @@ class SearchResult
         $this->matches = $matches;
     }
 
+    /**
+     * @return int
+     */
+    public function getMatchCount()
+    {
+        return count($this->matches);
+    }
 
+    /**
+     * @return bool
+     */
+    public function hasMatches()
+    {
+        return (bool) $this->matches;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeName()
+    {
+        return SearchRequestType::getName($this->getType());
+    }
 }

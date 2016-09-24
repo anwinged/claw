@@ -4,7 +4,7 @@
   /* @var array $errors */
   /* @var array $matches */
 
-  $this->layout('layout', ['title' => 'Index']);
+  $this->layout('layout', ['title' => 'Поиск']);
 ?>
 
 <form class="form" method="POST">
@@ -24,7 +24,7 @@
 
   <div class="form__group">
     <label for="type">Тип</label>
-    <select name="type" id="type" required>
+    <select class="js-type-field" name="type" id="type" required>
       <?php foreach (\Claw\Entity\SearchRequestType::getTypeNames() as $type => $name): ?>
         <option value="<?= $type ?>" <?= $type === $searchRequest->getType() ? 'selected' : '' ?> >
           <?= $this->e($name) ?>
@@ -33,7 +33,7 @@
     </select>
   </div>
 
-  <div class="form__group">
+  <div class="form__group js-text-group hidden">
     <label for="text">Текст</label>
     <input name="text" type="text" id="text" value="<?= $this->e($searchRequest->getText()) ?>">
   </div>
@@ -49,3 +49,9 @@
     <?php endforeach; ?>
   </ol>
 <?php endif; ?>
+
+<!-- -->
+
+<?php $this->start('js') ?>
+  <script src="<?= $this->asset('/js/index.js') ?>"></script>
+<?php $this->stop() ?>

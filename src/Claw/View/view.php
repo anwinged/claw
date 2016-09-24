@@ -2,7 +2,7 @@
 /* @var \League\Plates\Template\Template $this */
 /* @var \Claw\Entity\SearchResult $searchResult */
 
-$this->layout('layout', ['title' => 'Index']);
+$this->layout('layout', ['title' => 'Резульаты поиска']);
 ?>
 
 <?php if ($searchResult->getMatches()): ?>

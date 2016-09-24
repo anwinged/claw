@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Claw;
 
 use Claw\Action\Index;
+use Claw\Action\Items;
 use Claw\Action\View;
 use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
@@ -90,6 +91,7 @@ class App
         $sourcePath = $rootPath.DIRECTORY_SEPARATOR.'src';
         $webPath = $rootPath.DIRECTORY_SEPARATOR.'web';
 
+        $container['appName'] = 'Claw';
         $container['rootPath'] = $rootPath;
         $container['sourcePath'] = $sourcePath;
         $container['webPath'] = $webPath;
@@ -119,6 +121,7 @@ class App
                 .DIRECTORY_SEPARATOR.'Claw'
                 .DIRECTORY_SEPARATOR.'View'
             );
+            $engine->addData(['appName' => $c['appName']]);
             $engine->loadExtension(new Asset($c['webPath']));
 
             return $engine;
@@ -146,6 +149,10 @@ class App
 
         $container['view'] = function ($c) {
             return new View($c['request'], $c['renderer'], $c['searchResultStorage']);
+        };
+
+        $container['items'] = function ($c) {
+            return new Items($c['request'], $c['renderer'], $c['searchResultStorage']);
         };
     }
 }

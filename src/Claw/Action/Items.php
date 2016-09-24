@@ -3,10 +3,11 @@
  * Created by PhpStorm.
  * User: av
  * Date: 24.09.16
- * Time: 16:35.
+ * Time: 17:00
  */
 
 namespace Claw\Action;
+
 
 use Claw\ActionInterface;
 use Claw\Storage\SearchResultStorage;
@@ -14,7 +15,13 @@ use League\Plates\Engine;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class View implements ActionInterface
+/**
+ * Class Items
+ * @package Claw\Action
+ *
+ * Потому что List нельзя использовать как имя класса
+ */
+class Items implements ActionInterface
 {
     private $request;
 
@@ -26,7 +33,8 @@ class View implements ActionInterface
         Request $request,
         Engine $renderer,
         SearchResultStorage $storage
-    ) {
+    )
+    {
         $this->request = $request;
         $this->renderer = $renderer;
         $this->storage = $storage;
@@ -34,17 +42,10 @@ class View implements ActionInterface
 
     public function run()
     {
-        $searchResult = $this->storage->find($this->request->query->getInt('id'));
+        $searchResults = $this->storage->findAll();
 
-        if (!$searchResult) {
-            return new Response(
-                $this->renderer->render('no_record'),
-                Response::HTTP_NOT_FOUND
-            );
-        }
-
-        $content = $this->renderer->render('view', [
-            'searchResult' => $searchResult,
+        $content = $this->renderer->render('items', [
+            'searchResults' => $searchResults,
         ]);
 
         return new Response($content);
