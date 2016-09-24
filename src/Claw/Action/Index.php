@@ -43,21 +43,21 @@ class Index implements ActionInterface
         $searchRequestForm = new SearchRequestForm($searchRequest);
         $searchRequestForm->handle($this->request);
         $errors = [];
-        $matches = [];
+        $searchResult = null;
 
         if ($searchRequestForm->isSubmit()) {
             $searchRequestValidator = new SearchRequestValidator($searchRequest);
             $errors = $searchRequestValidator->validate();
             if (!$errors) {
                 /** @var SearchProcessor $searchProcessor */
-                $matches = $this->searchProcessor->process($searchRequest);
+                $searchResult = $this->searchProcessor->process($searchRequest);
             }
         }
 
         $content = $this->renderer->render('index', [
             'searchRequest' => $searchRequest,
             'errors' => $errors,
-            'matches' => $matches,
+            'matches' => $searchResult ? $searchResult->getMatches() : [],
         ]);
 
         return new Response($content);

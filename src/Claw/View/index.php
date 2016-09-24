@@ -43,9 +43,9 @@
 
 <?php if ($matches): ?>
   <h2>Всего: <?= count($matches) ?></h2>
-  <ul>
+  <ol>
     <?php foreach ($matches as $matchValue): ?>
       <li><?= $this->e($matchValue) ?></li>
     <?php endforeach; ?>
-  </ul>
+  </ol>
 <?php endif; ?>

@@ -3,6 +3,7 @@
 namespace Claw\Service;
 
 use Claw\Entity\SearchRequest;
+use Claw\Entity\SearchResult;
 use Claw\Service\Searcher\SearcherInterface;
 
 class SearchProcessor
@@ -23,6 +24,11 @@ class SearchProcessor
         $this->pageLoader = $pageRetriever;
     }
 
+    /**
+     * @param SearchRequest $searchRequest
+     *
+     * @return SearchResult
+     */
     public function process(SearchRequest $searchRequest)
     {
         /** @var SearcherInterface $searcher */
@@ -33,6 +39,12 @@ class SearchProcessor
 
         $content = $this->pageLoader->getContent($searchRequest->getUrl());
 
-        return $searcher->find($content);
+        $searchResult = new SearchResult();
+        $searchResult->setUrl($searchRequest->getUrl());
+        $searchResult->setType($searchRequest->getType());
+        $searchResult->setText($searchRequest->getText());
+        $searchResult->setMatches($searcher->find($content));
+
+        return $searchResult;
     }
 }

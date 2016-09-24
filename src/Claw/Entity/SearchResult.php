@@ -27,9 +27,9 @@ class SearchResult
     private $text;
 
     /**
-     * @var string
+     * @var string[]
      */
-    private $matches;
+    private $matches = [];
 
     /**
      * @return string
@@ -80,7 +80,7 @@ class SearchResult
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public function getMatches()
     {
@@ -88,9 +88,9 @@ class SearchResult
     }
 
     /**
-     * @param string $matches
+     * @param string[] $matches
      */
-    public function setMatches($matches)
+    public function setMatches(array $matches)
     {
         $this->matches = $matches;
     }
