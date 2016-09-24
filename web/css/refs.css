@@ -1,0 +1,13 @@
+.refs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2em;
+}
+
+.refs__item {
+    display: inline-block;
+}
+
+.refs__item + .refs__item:before {
+    content: ' / ';
+}

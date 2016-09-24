@@ -5,6 +5,11 @@
   $this->layout('layout', ['title' => 'Результаты поиска #'.$searchResult->getId()]);
 ?>
 
+<ul class="refs">
+  <li class="refs__item"><a href="/">Поиск</a></li>
+  <li class="refs__item"><a href="/items">Результаты</a></li>
+</ul>
+
 <table class="detailed">
   <tr>
     <th>Адрес</th>

@@ -5,6 +5,11 @@
   $this->layout('layout', ['title' => 'Список запросов']);
 ?>
 
+<ul class="refs">
+  <li class="refs__item"><a href="/">Поиск</a></li>
+  <li class="refs__item"><a href="/items">Результаты</a></li>
+</ul>
+
 <h2>Всего: <?= count($searchResults) ?></h2>
 
 <table class="table">

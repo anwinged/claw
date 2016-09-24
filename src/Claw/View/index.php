@@ -7,6 +7,11 @@
   $this->layout('layout', ['title' => 'Поиск']);
 ?>
 
+<ul class="refs">
+  <li class="refs__item"><a href="/">Поиск</a></li>
+  <li class="refs__item"><a href="/items">Результаты</a></li>
+</ul>
+
 <form class="form" method="POST">
 
   <?php if ($errors): ?>
