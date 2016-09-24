@@ -1,0 +1,22 @@
+{
+    "name": "av/claw",
+    "description": "Simple grabber for web pages",
+    "type": "project",
+    "require": {
+        "symfony/http-foundation": "^3.1",
+        "pimple/pimple": "^3.0",
+        "league/plates": "^3.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anton Vakhrushev",
+            "email": "anwinged@ya.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Claw\\": "src/Claw/"
+        }
+    }
+}
