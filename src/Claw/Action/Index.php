@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: av
- * Date: 24.09.16
- * Time: 15:06
- */
 
 namespace Claw\Action;
-
 
 use Claw\ActionInterface;
 use Claw\Entity\SearchRequest;
@@ -31,8 +24,7 @@ class Index implements ActionInterface
         Request $request,
         Engine $renderer,
         SearchProcessor $searchProcessor
-    )
-    {
+    ) {
         $this->request = $request;
         $this->renderer = $renderer;
         $this->searchProcessor = $searchProcessor;
@@ -50,7 +42,7 @@ class Index implements ActionInterface
             $searchRequestValidator = new SearchRequestValidator($searchRequest);
             $errors = $searchRequestValidator->validate();
             if (!$errors) {
-                /** @var SearchProcessor $searchProcessor */
+                /* @var SearchProcessor $searchProcessor */
                 $searchResult = $this->searchProcessor->process($searchRequest);
 
                 return new RedirectResponse('/view?id='.$searchResult->getId());
@@ -60,7 +52,6 @@ class Index implements ActionInterface
         $content = $this->renderer->render('index', [
             'searchRequest' => $searchRequest,
             'errors' => $errors,
-            'matches' => $searchResult ? $searchResult->getMatches() : [],
         ]);
 
         return new Response($content);

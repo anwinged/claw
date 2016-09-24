@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: av
- * Date: 24.09.16
- * Time: 17:00
- */
 
 namespace Claw\Action;
-
 
 use Claw\ActionInterface;
 use Claw\Storage\SearchResultStorage;
@@ -16,10 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class Items
- * @package Claw\Action
- *
- * Потому что List нельзя использовать как имя класса
+ * Class Items.
  */
 class Items implements ActionInterface
 {
@@ -33,8 +23,7 @@ class Items implements ActionInterface
         Request $request,
         Engine $renderer,
         SearchResultStorage $storage
-    )
-    {
+    ) {
         $this->request = $request;
         $this->renderer = $renderer;
         $this->storage = $storage;

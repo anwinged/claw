@@ -55,10 +55,6 @@
   <button class="form__submit" type="submit">Найти</button>
 </form>
 
-<p>
-  <a href="/items">Последние запросы</a>
-</p>
-
 <!-- -->
 
 <?php $this->start('js') ?>

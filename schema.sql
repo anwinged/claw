@@ -13,12 +13,13 @@
 
 -- CREATE TABLE "search_result" ----------------------------
 CREATE TABLE `search_result` ( 
-	`id` Int( 20 ) UNSIGNED AUTO_INCREMENT NOT NULL,
-	`url` VarChar( 255 ) NOT NULL,
-	`type` VarChar( 255 ) NOT NULL,
-	`text` VarChar( 255 ) NOT NULL,
+	`id` Int(20) UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`url` VarChar(2048) NOT NULL,
+	`type` VarChar(32) NOT NULL,
+	`text` VarChar(255),
 	`matches` Text NOT NULL,
-	CONSTRAINT `unique_id` UNIQUE( `id` ) )
+	CONSTRAINT `unique_id` UNIQUE(`id`)
+)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1;
 -- ---------------------------------------------------------

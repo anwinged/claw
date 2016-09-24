@@ -28,8 +28,7 @@ class SearchProcessor
         SearcherFactory $searcherFactory,
         PageLoader $pageRetriever,
         SearchResultStorage $storage
-    )
-    {
+    ) {
         $this->searcherFactory = $searcherFactory;
         $this->pageLoader = $pageRetriever;
         $this->storage = $storage;

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: av
  * Date: 24.09.16
- * Time: 13:16
+ * Time: 13:16.
  */
 
 namespace Claw\Service;
-
 
 class PageLoader
 {

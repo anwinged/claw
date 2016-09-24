@@ -12,6 +12,7 @@
     project_root: /vagrant
     timezone: UTC
     locale: en_US.UTF-8
+    database_schema: "{{ project_root }}/schema.sql"
 
   roles:
     - server

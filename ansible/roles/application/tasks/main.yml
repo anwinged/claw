@@ -14,5 +14,12 @@
     host: '%'
     login_user: root
 
+- name: setup database schema
+  mysql_db:
+    name: "{{ db.name }}"
+    login_user: root
+    state: import
+    target: "{{ database_schema }}"
+
 - name: Install project dependencies
   composer: command=install no_dev=no working_dir={{ project_root }}

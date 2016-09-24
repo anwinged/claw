@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: av
  * Date: 24.09.16
- * Time: 12:21
+ * Time: 12:21.
  */
 
 namespace Claw\Form;
-
 
 use Claw\Entity\SearchRequest;
 use Symfony\Component\HttpFoundation\Request;

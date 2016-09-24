@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: av
  * Date: 24.09.16
- * Time: 11:24
+ * Time: 11:24.
  */
 
 namespace Claw\Entity;
-
 
 class SearchResult
 {

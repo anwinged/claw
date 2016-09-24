@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Claw\Service\Searcher;
 
-
 class HtmlTagSearcher implements SearcherInterface
 {
     /**
@@ -31,7 +30,7 @@ class HtmlTagSearcher implements SearcherInterface
         $matches = [];
 
         foreach ($nodes as $node) {
-            /** @var \DOMNode $node */
+            /* @var \DOMNode $node */
             $matches[] = $doc->saveHTML($node);
         }
 
