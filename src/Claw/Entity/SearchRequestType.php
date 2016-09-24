@@ -23,9 +23,9 @@ class SearchRequestType
     ];
 
     private static $names = [
-        self::TEXT => 'Текст',
-        self::IMAGE => 'Изображения',
         self::LINK => 'Ссылки',
+        self::IMAGE => 'Изображения',
+        self::TEXT => 'Текст',
     ];
 
     public static function getTypeNames()

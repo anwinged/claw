@@ -6,13 +6,33 @@ $this->layout('layout', ['title' => 'Список запросов']);
 ?>
 
 <h2>Всего: <?= count($searchResults) ?></h2>
-<ol>
-  <?php foreach ($searchResults as $searchResult): ?>
-    <li>
-      <a href="/view?id=<?= $searchResult->getId() ?>">
-        <?= $this->e($searchResult->getUrl()) ?></a>
-      <?= $this->e($searchResult->getTypeName()) ?>
-      <?= $this->e($searchResult->getMatchCount()) ?>
-    </li>
-  <?php endforeach; ?>
-</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Адрес</th>
+      <th>Тип</th>
+      <th>Результаты</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($searchResults as $index => $searchResult): ?>
+      <tr>
+        <td>
+          <?= $this->e($index) ?>
+        </td>
+        <td>
+          <a href="/view?id=<?= $searchResult->getId() ?>">
+            <?= $this->e($searchResult->getUrl()) ?></a>
+        </td>
+        <td>
+          <?= $this->e($searchResult->getTypeName()) ?>
+        </td>
+        <td>
+          <?= $this->e($searchResult->getMatchCount()) ?>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>

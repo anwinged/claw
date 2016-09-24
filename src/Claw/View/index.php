@@ -18,37 +18,41 @@
   <?php endif; ?>
 
   <div class="form__group">
-    <label for="url">Адрес</label>
-    <input name="url" id="url" type="url" value="<?= $this->e($searchRequest->getUrl()) ?>" required>
+    <label class="form__label" for="url">Адрес:</label>
+    <input class="form__input"
+           name="url"
+           id="url"
+           type="url"
+           value="<?= $this->e($searchRequest->getUrl()) ?>"
+           placeholder="http://example.com"
+           required
+    >
   </div>
 
   <div class="form__group">
-    <label for="type">Тип</label>
-    <select class="js-type-field" name="type" id="type" required>
-      <?php foreach (\Claw\Entity\SearchRequestType::getTypeNames() as $type => $name): ?>
-        <option value="<?= $type ?>" <?= $type === $searchRequest->getType() ? 'selected' : '' ?> >
-          <?= $this->e($name) ?>
-        </option>
-      <?php endforeach; ?>
-    </select>
+    <label class="form__label">Тип:</label>
+    <?php foreach (\Claw\Entity\SearchRequestType::getTypeNames() as $type => $name): ?>
+      <input id="type_<?= $type ?>"
+             class="form__type js-type-field"
+             type="radio" name="type"
+             value="<?= $type ?>"
+             <?= $type === $searchRequest->getType() ? 'checked' : '' ?>
+      >
+      <label class="form__type-label" for="type_<?= $type ?>"><?= $name ?></label>
+    <?php endforeach; ?>
   </div>
 
   <div class="form__group js-text-group hidden">
-    <label for="text">Текст</label>
-    <input name="text" type="text" id="text" value="<?= $this->e($searchRequest->getText()) ?>">
+    <label class="form__label" for="text">Текст:</label>
+    <textarea class="form__textarea" name="text" rows="3" id="text"><?= $this->e($searchRequest->getText()) ?></textarea>
   </div>
 
-  <button type="submit">Найти</button>
+  <button class="form__submit" type="submit">Найти</button>
 </form>
 
-<?php if ($matches): ?>
-  <h2>Всего: <?= count($matches) ?></h2>
-  <ol>
-    <?php foreach ($matches as $matchValue): ?>
-      <li><?= $this->e($matchValue) ?></li>
-    <?php endforeach; ?>
-  </ol>
-<?php endif; ?>
+<p>
+  <a href="/items">Последние запросы</a>
+</p>
 
 <!-- -->
 
