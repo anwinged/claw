@@ -4,6 +4,7 @@ namespace Claw;
 
 use Claw\Service\Router\Router;
 use League\Plates\Engine;
+use League\Plates\Extension\Asset;
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,9 +68,13 @@ class App
 
     private static function initAppServices(Container $container)
     {
-        $rootPath = realpath(__DIR__);
+        $rootPath = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..');
+        $sourcePath = $rootPath.DIRECTORY_SEPARATOR.'src';
+        $webPath = $rootPath.DIRECTORY_SEPARATOR.'web';
 
         $container['rootPath'] = $rootPath;
+        $container['sourcePath'] = $sourcePath;
+        $container['webPath'] = $webPath;
 
         $container['request'] = $container->factory(function () {
             return Request::createFromGlobals();
@@ -92,7 +97,13 @@ class App
         };
 
         $container['renderer'] = function ($c) {
-            return new Engine($c['rootPath'].DIRECTORY_SEPARATOR.'View');
+            $engine = new Engine($c['sourcePath']
+                .DIRECTORY_SEPARATOR.'Claw'
+                .DIRECTORY_SEPARATOR.'View'
+            );
+            $engine->loadExtension(new Asset($c['webPath']));
+
+            return $engine;
         };
     }
 }

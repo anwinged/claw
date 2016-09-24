@@ -18,6 +18,7 @@ class Controller
     public function index(Request $request, Response $response, Container $container)
     {
         $content = $container['renderer']->render('index', ['name' => 'World']);
+
         return $response->setContent($content);
     }
 }
