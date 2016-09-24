@@ -7,7 +7,7 @@ class SearchRequest
     /**
      * @var string
      */
-    private $type = SearchRequestType::LINK;
+    private $type = SearchType::LINK;
 
     /**
      * @var string

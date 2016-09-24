@@ -2,7 +2,7 @@
 
 namespace Claw\Service;
 
-use Claw\Entity\SearchRequestType;
+use Claw\Entity\SearchType;
 use Claw\Service\Searcher\ImageSearcher;
 use Claw\Service\Searcher\LinkSearcher;
 use Claw\Service\Searcher\SearcherInterface;
@@ -19,13 +19,13 @@ class SearcherFactory
     public function createParser($searchType, $text = null)
     {
         switch ($searchType) {
-            case SearchRequestType::LINK:
+            case SearchType::LINK:
                 return new LinkSearcher();
 
-            case SearchRequestType::IMAGE:
+            case SearchType::IMAGE:
                 return new ImageSearcher();
 
-            case SearchRequestType::TEXT:
+            case SearchType::TEXT:
                 return new TextSearcher($text);
         }
 

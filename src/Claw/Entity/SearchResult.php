@@ -137,6 +137,6 @@ class SearchResult
      */
     public function getTypeName()
     {
-        return SearchRequestType::getName($this->getType());
+        return SearchType::getName($this->getType());
     }
 }

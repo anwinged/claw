@@ -31,7 +31,7 @@
 
   <div class="form__group">
     <label class="form__label">Тип:</label>
-    <?php foreach (\Claw\Entity\SearchRequestType::getTypeNames() as $type => $name): ?>
+    <?php foreach (\Claw\Entity\SearchType::getTypeNames() as $type => $name): ?>
       <input id="type_<?= $type ?>"
              class="form__type js-type-field"
              type="radio" name="type"

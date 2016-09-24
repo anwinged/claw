@@ -14,7 +14,7 @@
     <th>Тип поиска</th>
     <td><?= $this->e($searchResult->getTypeName()) ?></td>
   </tr>
-  <?php if ($searchResult->getType() === \Claw\Entity\SearchRequestType::TEXT): ?>
+  <?php if ($searchResult->getType() === \Claw\Entity\SearchType::TEXT): ?>
     <tr>
       <th>Текст</th>
       <td><?= $this->e($searchResult->getText()) ?></td>

@@ -8,7 +8,7 @@
 
 namespace Claw\Entity;
 
-class SearchRequestType
+class SearchType
 {
     const TEXT = 'text';
 

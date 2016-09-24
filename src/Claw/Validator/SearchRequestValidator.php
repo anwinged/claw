@@ -3,7 +3,7 @@
 namespace Claw\Validator;
 
 use Claw\Entity\SearchRequest;
-use Claw\Entity\SearchRequestType;
+use Claw\Entity\SearchType;
 
 class SearchRequestValidator
 {
@@ -26,11 +26,11 @@ class SearchRequestValidator
             $errors['url'] = 'Адрес указан в неправильном формате';
         }
 
-        if (in_array($type, SearchRequestType::getAvailableTypes(), $strict = true) === false) {
+        if (in_array($type, SearchType::getAvailableTypes(), $strict = true) === false) {
             $errors['type'] = 'Недопустимый тип поиска';
         }
 
-        if ($type === SearchRequestType::TEXT && !$text) {
+        if ($type === SearchType::TEXT && !$text) {
             $errors['text'] = 'При поиске текста нужно указать что искать';
         }
 
