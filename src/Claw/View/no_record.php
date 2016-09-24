@@ -1,7 +1,7 @@
 <?php
-/* @var \League\Plates\Template\Template $this */
+  /* @var \League\Plates\Template\Template $this */
 
-$this->layout('layout', ['title' => 'Запись не найдена']);
+  $this->layout('layout', ['title' => 'Запись не найдена']);
 ?>
 
 <p>

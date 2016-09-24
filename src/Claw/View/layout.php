@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="<?= $this->asset('/css/layout.css') ?>" />
   <link rel="stylesheet" href="<?= $this->asset('/css/helpers.css') ?>" />
   <link rel="stylesheet" href="<?= $this->asset('/css/form.css') ?>" />
+  <link rel="stylesheet" href="<?= $this->asset('/css/table.css') ?>" />
+  <link rel="stylesheet" href="<?= $this->asset('/css/detailed.css') ?>" />
 </head>
 <body>
 

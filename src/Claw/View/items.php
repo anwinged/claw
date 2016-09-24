@@ -1,18 +1,19 @@
 <?php
-/* @var \League\Plates\Template\Template $this */
-/* @var \Claw\Entity\SearchResult[] $searchResults */
+  /* @var \League\Plates\Template\Template $this */
+  /* @var \Claw\Entity\SearchResult[] $searchResults */
 
-$this->layout('layout', ['title' => 'Список запросов']);
+  $this->layout('layout', ['title' => 'Список запросов']);
 ?>
 
 <h2>Всего: <?= count($searchResults) ?></h2>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th></th>
       <th>Адрес</th>
       <th>Тип</th>
+      <th>Результаты</th>
       <th>Результаты</th>
     </tr>
   </thead>
@@ -23,14 +24,18 @@ $this->layout('layout', ['title' => 'Список запросов']);
           <?= $this->e($index) ?>
         </td>
         <td>
-          <a href="/view?id=<?= $searchResult->getId() ?>">
-            <?= $this->e($searchResult->getUrl()) ?></a>
+          <span title="<?= $this->e($searchResult->getUrl()) ?>">
+            <?= $this->e($searchResult->getUrl()) ?>
+          </span>
         </td>
         <td>
           <?= $this->e($searchResult->getTypeName()) ?>
         </td>
         <td>
           <?= $this->e($searchResult->getMatchCount()) ?>
+        </td>
+        <td>
+          <a href="/view?id=<?= $searchResult->getId() ?>">Посмотреть</a>
         </td>
       </tr>
     <?php endforeach; ?>

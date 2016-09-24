@@ -1,0 +1,19 @@
+.detailed {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.detailed th,
+.detailed td {
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.detailed th {
+    width: 120px;
+}
+
+.detailed th {
+    text-align: left;
+}

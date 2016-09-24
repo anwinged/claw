@@ -1,15 +1,44 @@
 <?php
-/* @var \League\Plates\Template\Template $this */
-/* @var \Claw\Entity\SearchResult $searchResult */
+  /* @var \League\Plates\Template\Template $this */
+  /* @var \Claw\Entity\SearchResult $searchResult */
 
-$this->layout('layout', ['title' => 'Резульаты поиска']);
+  $this->layout('layout', ['title' => 'Результаты поиска #'.$searchResult->getId()]);
 ?>
 
-<?php if ($searchResult->getMatches()): ?>
-  <h2>Всего: <?= count($searchResult->getMatches()) ?></h2>
-  <ol>
-    <?php foreach ($searchResult->getMatches() as $matchValue): ?>
-      <li><?= $this->e($matchValue) ?></li>
+<table class="detailed">
+  <tr>
+    <th>Адрес</th>
+    <td><?= $this->e($searchResult->getUrl()) ?></td>
+  </tr>
+  <tr>
+    <th>Тип поиска</th>
+    <td><?= $this->e($searchResult->getTypeName()) ?></td>
+  </tr>
+  <?php if ($searchResult->getType() === \Claw\Entity\SearchRequestType::TEXT): ?>
+    <tr>
+      <th>Текст</th>
+      <td><?= $this->e($searchResult->getText()) ?></td>
+    </tr>
+  <?php endif ?>
+  <tr>
+    <th>Совпадений</th>
+    <td><?= $this->e($searchResult->getMatchCount()) ?></td>
+  </tr>
+</table>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Индекс</th>
+      <th>Совпадение</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($searchResult->getMatches() as $index => $matchValue): ?>
+      <tr>
+        <td><?= $this->e($index + 1) ?></td>
+        <td><?= $this->e($matchValue) ?></td>
+      </tr>
     <?php endforeach; ?>
-  </ol>
-<?php endif; ?>
+  </tbody>
+</table>
