@@ -50,39 +50,71 @@ class App
     public function respond()
     {
         $request = $this->container['request'];
+
+        try {
+            $response = $this->process($request);
+        } catch (\Exception $e) {
+            $response = $this->handleException($e);
+        }
+
+        $response->prepare($request);
+        $response->send();
+    }
+
+    private function process(Request $request)
+    {
         $router = $this->container['router'];
 
         /** @var Router $router */
         $route = $router->findRoute($request);
 
         if (!$route) {
-            $notFound = $this->container['notFoundResponse'];
-            $notFound->prepare($request);
-            $notFound->send();
-
-            return;
+            throw new \RuntimeException(sprintf(
+                'Route for %s not found',
+                $request->getPathInfo()
+            ));
         }
 
         $action = $route->getAction();
 
         if (!isset($this->container[$action])) {
-            throw new \RuntimeException();
+            throw new \RuntimeException(sprintf(
+                'Action "%s" not found in service container',
+                $action
+            ));
         }
 
         $actionService = $this->container[$action];
 
         if (!($actionService instanceof ActionInterface)) {
-            throw new \RuntimeException();
+            throw new \RuntimeException(sprintf(
+                'Action "%s" (%s) must implement ActionInterface',
+                $action,
+                get_class($actionService)
+            ));
         }
 
         $response = $actionService->run();
 
         if (!($response instanceof Response)) {
-            throw new \Exception();
+            throw new \RuntimeException(sprintf(
+                'Action "%s" (%s) must return Response object',
+                $action,
+                get_class($actionService)
+            ));
         }
 
-        $response->prepare($request);
-        $response->send();
+        return $response;
+    }
+
+    private function handleException(\Exception $e)
+    {
+        $renderer = $this->container['renderer'];
+
+        return new Response(
+            $renderer->render('exception', ['exception' => $e]),
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
     }
 
     private static function initAppServices(Container $container)

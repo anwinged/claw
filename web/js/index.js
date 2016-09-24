@@ -1,5 +1,7 @@
 (function ($) {
 
+    var TYPE_TEXT = 'text';
+
     var init = function () {
         var typeElement = $('.js-type-field');
         var currentType = typeElement.filter(':checked').val();
@@ -15,9 +17,10 @@
 
     var handleTypeChange = function(currentType) {
         var textGroup = $('.js-text-group');
-        textGroup.toggleClass('hidden', currentType !== 'text');
-        textGroup.find(':input').prop('disabled', currentType !== 'text');
-        textGroup.find(':input').prop('required', currentType === 'text');
+        var isTextType = currentType === TYPE_TEXT;
+        textGroup.toggleClass('hidden', !isTextType);
+        textGroup.find(':input').prop('disabled', !isTextType);
+        textGroup.find(':input').prop('required', isTextType);
     };
 
     $(document).ready(init);
