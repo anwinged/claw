@@ -39,6 +39,6 @@
 - name: Set dir permissions for {{ project_root }}
   file:
     dest: "{{ project_root }}"
-    mode: 0775
+    mode: 0644
     recurse: yes
   notify: restart PHP-FPM
