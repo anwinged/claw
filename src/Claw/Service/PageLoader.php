@@ -1,16 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: av
- * Date: 24.09.16
- * Time: 13:16.
- */
+
+declare(strict_types=1);
 
 namespace Claw\Service;
 
 class PageLoader
 {
     /**
+     * Возвращает содержимое страницы по переданному адресу.
+     *
      * @param $url
      *
      * @return string
@@ -57,9 +55,9 @@ class PageLoader
     }
 
     /**
-     * Convert page to UTF-8 encoding if possible.
+     * Конвертирует страницу в кодировку UTF-8 по возможности.
      *
-     * http://stackoverflow.com/a/2513938
+     * @see http://stackoverflow.com/a/2513938
      *
      * @param string $content
      * @param string $contentType

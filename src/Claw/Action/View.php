@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: av
- * Date: 24.09.16
- * Time: 16:35.
- */
+
+declare(strict_types=1);
 
 namespace Claw\Action;
 

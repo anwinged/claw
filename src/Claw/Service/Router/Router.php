@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Claw\Service\Router;
 
 use Symfony\Component\HttpFoundation\Request;

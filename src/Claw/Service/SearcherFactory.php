@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Claw\Service;
 
 use Claw\Entity\SearchType;
@@ -11,12 +13,14 @@ use Claw\Service\Searcher\TextSearcher;
 class SearcherFactory
 {
     /**
-     * @param $searchType
+     * Создает объект для поиска вхождений подстроки по тексту.
+     *
+     * @param string      $searchType
      * @param string|null $text
      *
      * @return SearcherInterface
      */
-    public function createParser($searchType, $text = null): SearcherInterface
+    public function createSearcher(string $searchType, string $text = null): SearcherInterface
     {
         switch ($searchType) {
             case SearchType::LINK:
@@ -29,6 +33,9 @@ class SearcherFactory
                 return new TextSearcher($text);
         }
 
-        throw new \RuntimeException(sprintf('Unknown search type %s', $searchType));
+        throw new \RuntimeException(sprintf(
+            'Unknown search type %s',
+            $searchType
+        ));
     }
 }

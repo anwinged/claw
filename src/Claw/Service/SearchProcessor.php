@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Claw\Service;
 
 use Claw\Entity\SearchRequest;
@@ -52,7 +54,7 @@ class SearchProcessor
     public function process(SearchRequest $searchRequest): SearchResult
     {
         /** @var SearcherInterface $searcher */
-        $searcher = $this->searcherFactory->createParser(
+        $searcher = $this->searcherFactory->createSearcher(
             $searchRequest->getType(),
             $searchRequest->getText()
         );
