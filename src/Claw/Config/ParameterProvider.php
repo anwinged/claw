@@ -17,5 +17,7 @@ class ParameterProvider implements ServiceProviderInterface
         $container['db.name'] = 'claw';
         $container['db.user'] = 'claw';
         $container['db.pass'] = 'claw';
+
+        $container['error.view'] = 'exception';
     }
 }

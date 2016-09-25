@@ -7,6 +7,7 @@ namespace Claw;
 use Claw\Config\ActionProvider;
 use Claw\Config\ParameterProvider;
 use Claw\Config\ServiceProvider;
+use Claw\Service\ErrorHandlerInterface;
 use Claw\Service\Router\Router;
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
@@ -115,11 +116,15 @@ class App
 
     private function handleException(\Exception $e)
     {
-        $renderer = $this->container['renderer'];
+        $handler = $this->container['errorHandler'];
 
-        return new Response(
-            $renderer->render('exception', ['exception' => $e]),
-            Response::HTTP_INTERNAL_SERVER_ERROR
-        );
+        if (!($handler instanceof ErrorHandlerInterface)) {
+            throw new \RuntimeException(sprintf(
+                'ErrorHandler (%s) must implement ErrorHandlerInterface',
+                get_class($handler)
+            ));
+        }
+
+        return $handler->handle($e);
     }
 }

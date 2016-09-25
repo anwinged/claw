@@ -2,6 +2,7 @@
 
 namespace Claw\Config;
 
+use Claw\Service\ErrorHandler;
 use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
@@ -43,6 +44,10 @@ class ServiceProvider implements ServiceProviderInterface
             $engine->loadExtension(new Asset($c['webPath']));
 
             return $engine;
+        };
+
+        $container['errorHandler'] = function ($c) {
+            return new ErrorHandler($c['renderer'], $c['error.view']);
         };
 
         $container['searcherFactory'] = function () {
