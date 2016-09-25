@@ -4,9 +4,9 @@ namespace Claw\Action;
 
 use Claw\ActionInterface;
 use Claw\Entity\SearchRequest;
-use Claw\Form\SearchRequestForm;
+use Claw\Service\SearchRequestFormHandler;
 use Claw\Service\SearchProcessor;
-use Claw\Validator\SearchRequestValidator;
+use Claw\Service\SearchRequestValidator;
 use League\Plates\Engine;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +25,16 @@ class Search implements ActionInterface
     private $renderer;
 
     /**
+     * @var SearchRequestFormHandler
+     */
+    private $formHandler;
+
+    /**
+     * @var SearchRequestValidator
+     */
+    private $validator;
+
+    /**
      * @var SearchProcessor
      */
     private $searchProcessor;
@@ -32,10 +42,14 @@ class Search implements ActionInterface
     public function __construct(
         Request $request,
         Engine $renderer,
+        SearchRequestFormHandler $formHandler,
+        SearchRequestValidator $validator,
         SearchProcessor $searchProcessor
     ) {
         $this->request = $request;
         $this->renderer = $renderer;
+        $this->formHandler = $formHandler;
+        $this->validator = $validator;
         $this->searchProcessor = $searchProcessor;
     }
 
@@ -45,29 +59,25 @@ class Search implements ActionInterface
     public function run(): Response
     {
         $searchRequest = new SearchRequest();
-        $searchRequestForm = new SearchRequestForm($searchRequest);
-        $searchRequestForm->handle($this->request);
-        $errors = [];
-        $searchResult = null;
+        $isSubmit = $this->formHandler->handle($searchRequest, $this->request);
+        $errors = $isSubmit ? $this->validator->validate($searchRequest) : [];
         $isAjaxRequest = $this->request->request->getBoolean('ajax', false);
 
-        if ($searchRequestForm->isSubmit()) {
-            $searchRequestValidator = new SearchRequestValidator($searchRequest);
-            $errors = $searchRequestValidator->validate();
-            if (!$errors) {
-                /* @var SearchProcessor $searchProcessor */
-                $searchResult = $this->searchProcessor->process($searchRequest);
+        $searchResult = null;
 
-                if ($isAjaxRequest) {
-                    $content = $this->renderer->render('view', [
-                        'searchResult' => $searchResult,
-                    ]);
+        if ($isSubmit && !$errors) {
+            /* @var SearchProcessor $searchProcessor */
+            $searchResult = $this->searchProcessor->process($searchRequest);
 
-                    return new Response($content);
-                }
+            if ($isAjaxRequest) {
+                $content = $this->renderer->render('view', [
+                    'searchResult' => $searchResult,
+                ]);
 
-                return new RedirectResponse('/view?id='.$searchResult->getId());
+                return new Response($content);
             }
+
+            return new RedirectResponse('/view?id='.$searchResult->getId());
         }
 
         $content = $this->renderer->render('search', [

@@ -17,7 +17,13 @@ class ActionProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container['search'] = function ($c) {
-            return new Search($c['request'], $c['renderer'], $c['searchProcessor']);
+            return new Search(
+                $c['request'],
+                $c['renderer'],
+                $c['searchRequestFormHandler'],
+                $c['searchRequestValidator'],
+                $c['searchProcessor']
+            );
         };
 
         $container['view'] = function ($c) {

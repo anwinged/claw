@@ -7,6 +7,8 @@ use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
 use Claw\Service\SearchProcessor;
+use Claw\Service\SearchRequestFormHandler;
+use Claw\Service\SearchRequestValidator;
 use Claw\Service\SearchResultFactory;
 use Claw\Storage\SearchResultStorage;
 use League\Plates\Engine;
@@ -48,6 +50,14 @@ class ServiceProvider implements ServiceProviderInterface
 
         $container['errorHandler'] = function ($c) {
             return new ErrorHandler($c['renderer'], $c['error.view']);
+        };
+
+        $container['searchRequestValidator'] = function () {
+            return new SearchRequestValidator();
+        };
+
+        $container['searchRequestFormHandler'] = function () {
+            return new SearchRequestFormHandler();
         };
 
         $container['searcherFactory'] = function () {

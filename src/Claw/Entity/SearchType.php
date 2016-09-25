@@ -38,7 +38,7 @@ class SearchType
      *
      * @return mixed
      */
-    public static function getName($type): string
+    public static function getName(string $type): string
     {
         if (!isset(self::$names[$type])) {
             throw new \RuntimeException(sprintf('Unknown type %s', $type));
@@ -52,9 +52,9 @@ class SearchType
      *
      * @return bool
      */
-    public static function isAvailable($type): bool
+    public static function isAvailable(string $type): bool
     {
-        return isset(self::$availableTypes[$type]);
+        return in_array($type, self::$availableTypes, $strict = true);
     }
 
     /**

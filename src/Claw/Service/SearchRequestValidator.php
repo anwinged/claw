@@ -1,32 +1,25 @@
 <?php
 
-namespace Claw\Validator;
+namespace Claw\Service;
 
 use Claw\Entity\SearchRequest;
 use Claw\Entity\SearchType;
 
 class SearchRequestValidator
 {
-    private $searchRequest;
-
-    public function __construct(SearchRequest $searchRequest)
-    {
-        $this->searchRequest = $searchRequest;
-    }
-
-    public function validate()
+    public function validate(SearchRequest $searchRequest): array
     {
         $errors = [];
 
-        $url = $this->searchRequest->getUrl();
-        $type = $this->searchRequest->getType();
-        $text = $this->searchRequest->getText();
+        $url = $searchRequest->getUrl();
+        $type = $searchRequest->getType();
+        $text = $searchRequest->getText();
 
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             $errors['url'] = 'Адрес указан в неправильном формате';
         }
 
-        if (in_array($type, SearchType::getAvailableTypes(), $strict = true) === false) {
+        if (SearchType::isAvailable($type) === false) {
             $errors['type'] = 'Недопустимый тип поиска';
         }
 
