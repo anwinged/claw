@@ -1,3 +1,7 @@
 .hidden {
     display: none !important;
 }
+
+.break-all {
+    word-break: break-all;
+}

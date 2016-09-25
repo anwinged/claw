@@ -44,7 +44,12 @@
     font-size: 1.3em;
 }
 
-.form__submit:hover {
+.form__submit:disabled {
+    background-color: #7eb4ff;
+    cursor: default;
+}
+
+.form__submit:hover:not(:disabled) {
     background-color: #3677d7;
 }
 

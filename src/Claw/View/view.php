@@ -13,7 +13,7 @@
 <table class="detailed">
   <tr>
     <th>Адрес</th>
-    <td><?= $this->e($searchResult->getUrl()) ?></td>
+    <td class="break-all"><?= $this->e($searchResult->getUrl()) ?></td>
   </tr>
   <tr>
     <th>Тип поиска</th>
@@ -42,7 +42,7 @@
     <?php foreach ($searchResult->getMatches() as $index => $matchValue): ?>
       <tr>
         <td><?= $this->e($index + 1) ?></td>
-        <td><?= $this->e($matchValue) ?></td>
+        <td class="break-all"><?= $this->e($matchValue) ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

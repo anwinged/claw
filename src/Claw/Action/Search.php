@@ -37,6 +37,7 @@ class Search implements ActionInterface
         $searchRequestForm->handle($this->request);
         $errors = [];
         $searchResult = null;
+        $isAjaxRequest = $this->request->request->getBoolean('ajax', false);
 
         if ($searchRequestForm->isSubmit()) {
             $searchRequestValidator = new SearchRequestValidator($searchRequest);
@@ -44,6 +45,14 @@ class Search implements ActionInterface
             if (!$errors) {
                 /* @var SearchProcessor $searchProcessor */
                 $searchResult = $this->searchProcessor->process($searchRequest);
+
+                if ($isAjaxRequest) {
+                    $content = $this->renderer->render('view', [
+                        'searchResult' => $searchResult,
+                    ]);
+
+                    return new Response($content);
+                }
 
                 return new RedirectResponse('/view?id='.$searchResult->getId());
             }

@@ -19,7 +19,7 @@
 </head>
 <body>
 
-  <div class="layout__page">
+  <div id="page" class="layout__page">
 
     <header class="layout__header">
       <h1 class="layout__title"><?= $this->e($title) ?></h1>

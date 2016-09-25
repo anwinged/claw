@@ -27,7 +27,7 @@
         <td>
           <?= $this->e($index) ?>
         </td>
-        <td>
+        <td class="break-all">
           <a href="/view?id=<?= $searchResult->getId() ?>" title="<?= $this->e($searchResult->getUrl()) ?>">
             <?= $this->e($searchResult->getUrl()) ?>
           </a>

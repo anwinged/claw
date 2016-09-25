@@ -12,7 +12,7 @@
   <li class="refs__item"><a href="/items">Результаты</a></li>
 </ul>
 
-<form class="form" method="POST">
+<form id="search-form" class="form" method="POST">
 
   <?php if ($errors): ?>
     <ul>
@@ -52,7 +52,7 @@
     <textarea class="form__textarea" name="text" rows="3" id="text"><?= $this->e($searchRequest->getText()) ?></textarea>
   </div>
 
-  <button class="form__submit" type="submit">Найти</button>
+  <button id="search-submit-button" class="form__submit" type="submit">Найти</button>
 </form>
 
 <!-- -->
