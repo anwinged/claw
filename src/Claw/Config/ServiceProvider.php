@@ -13,7 +13,7 @@ use Claw\Service\SearchProcessor;
 use Claw\Service\SearchRequestFormHandler;
 use Claw\Service\SearchRequestValidator;
 use Claw\Service\SearchResultFactory;
-use Claw\Storage\SearchResultStorage;
+use Claw\Service\SearchResultStorage;
 use League\Plates\Engine;
 use League\Plates\Extension\Asset;
 use Pimple\Container;

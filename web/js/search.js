@@ -2,6 +2,9 @@
 
     var TYPE_TEXT = 'text';
 
+    /**
+     * Инициализарует события страницы
+     */
     var init = function () {
         var typeElement = $('.js-type-field');
         var currentType = typeElement.filter(':checked').val();
@@ -14,11 +17,21 @@
         $('#search-form').on('submit', onFormSubmit);
     };
 
+    /**
+     * Событие изменение типа поиска
+     *
+     * @param evt
+     */
     var onTypeChanged = function (evt) {
         var currentType = $(evt.currentTarget).val();
         handleTypeChange(currentType);
     };
 
+    /**
+     * Обрабатывает изменение типа поиска
+     *
+     * @param currentType Новый выбранный тип
+     */
     var handleTypeChange = function(currentType) {
         var textGroup = $('.js-text-group');
         var isTextType = currentType === TYPE_TEXT;
@@ -27,6 +40,11 @@
         textGroup.find(':input').prop('required', isTextType);
     };
 
+    /**
+     * Событие отправки формы
+     *
+     * @param evt
+     */
     var onFormSubmit = function (evt) {
         evt.preventDefault();
 
@@ -48,13 +66,32 @@
         request.fail(onFailedFormSubmit);
     };
 
+    /**
+     * Обработчик успешной отправки
+     *
+     * @param answer
+     */
     var onSuccessFormSubmit = function (answer) {
-        var newPageElement = $(answer).filter('#page');
-        $('#page').replaceWith(newPageElement);
+        replacePageContent(answer);
     };
 
+    /**
+     * Обработчик ошибки при отправке
+     *
+     * @param xhr
+     */
     var onFailedFormSubmit = function (xhr) {
-        console.error(xhr);
+        replacePageContent(xhr.responseText);
+    };
+
+    /**
+     * Заменяет содержимое страницы
+     *
+     * @param content
+     */
+    var replacePageContent = function (content) {
+        var newPageElement = $(content).filter('#page');
+        $('#page').replaceWith(newPageElement);
     };
 
     $(document).ready(init);

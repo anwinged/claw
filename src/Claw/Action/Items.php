@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Claw\Action;
 
 use Claw\ActionInterface;
-use Claw\Storage\SearchResultStorage;
+use Claw\Service\SearchResultStorage;
 use League\Plates\Engine;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

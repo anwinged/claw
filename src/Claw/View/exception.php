@@ -12,3 +12,8 @@
 <pre>
 <?= $this->e($exception->getTraceAsString()) ?>
 </pre>
+
+<ul class="refs">
+  <li class="refs__item"><a href="/">Поиск</a></li>
+  <li class="refs__item"><a href="/items">Результаты</a></li>
+</ul>

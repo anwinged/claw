@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Claw\Storage;
+namespace Claw\Service;
 
 use Claw\Entity\SearchResult;
 
@@ -72,7 +72,7 @@ class SearchResultStorage
 
         $statement->execute($this->dump($result));
 
-        $result->setId($this->pdo->lastInsertId());
+        $result->setId(intval($this->pdo->lastInsertId()));
     }
 
     /**

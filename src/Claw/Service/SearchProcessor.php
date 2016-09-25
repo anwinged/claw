@@ -7,7 +7,6 @@ namespace Claw\Service;
 use Claw\Entity\SearchRequest;
 use Claw\Entity\SearchResult;
 use Claw\Service\Searcher\SearcherInterface;
-use Claw\Storage\SearchResultStorage;
 
 class SearchProcessor
 {

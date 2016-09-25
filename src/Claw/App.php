@@ -38,22 +38,44 @@ class App
         (new ActionProvider())->register($this->container);
     }
 
-    public function get($path, $action)
+    /**
+     * Добавляет маршрут для метода GET.
+     *
+     * @param string $path
+     * @param string $action
+     */
+    public function get(string $path, string $action)
     {
         $this->route('GET', $path, $action);
     }
 
-    public function post($path, $action)
+    /**
+     * Добавляет марштур для метода POST.
+     *
+     * @param string $path
+     * @param string $action
+     */
+    public function post(string $path, string $action)
     {
         $this->route('POST', $path, $action);
     }
 
-    public function route($method, $path, $action)
+    /**
+     * Добавляет маршрут
+     *
+     * @param string $method Метод
+     * @param string $path   Путь в виде регулярного выражения
+     * @param string $action Действие - имя в контейнере
+     */
+    public function route(string $method, string $path, string $action)
     {
         $router = $this->container['router'];
         $router->registerRoute($method, $path, $action);
     }
 
+    /**
+     * Запускает обработку запроса пришложением
+     */
     public function respond()
     {
         $request = $this->container['request'];
@@ -68,7 +90,16 @@ class App
         $response->send();
     }
 
-    private function process(Request $request)
+    /**
+     * Обрабатывает запрос и возвращает ответ на него.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws \RuntimeException
+     */
+    private function process(Request $request): Response
     {
         $router = $this->container['router'];
 
@@ -114,7 +145,16 @@ class App
         return $response;
     }
 
-    private function handleException(\Exception $e)
+    /**
+     * Обрабатывает исключаение, возникшее при работе с запросом.
+     *
+     * @param \Exception $e
+     *
+     * @return Response
+     *
+     * @throws \RuntimeException
+     */
+    private function handleException(\Exception $e): Response
     {
         $handler = $this->container['errorHandler'];
 
