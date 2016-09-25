@@ -29,6 +29,5 @@ class ErrorHandler implements ErrorHandlerInterface
             $this->renderer->render($this->view, ['exception' => $e]),
             Response::HTTP_INTERNAL_SERVER_ERROR
         );
-
     }
 }

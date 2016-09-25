@@ -2,7 +2,6 @@
 
 namespace Claw\Service;
 
-
 use Claw\Entity\SearchRequest;
 use Claw\Entity\SearchResult;
 
