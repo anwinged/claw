@@ -8,7 +8,7 @@ use Claw\ActionInterface;
 use League\Plates\Engine;
 use Symfony\Component\HttpFoundation\Response;
 
-class RouteNotFound implements ActionInterface
+class NotFound implements ActionInterface
 {
     /**
      * @var Engine
