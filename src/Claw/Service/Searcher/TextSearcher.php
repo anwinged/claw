@@ -4,28 +4,18 @@ declare(strict_types=1);
 
 namespace Claw\Service\Searcher;
 
-class TextSearcher implements SearcherInterface
+/**
+ * Поиск всех вхождений определенного текста.
+ */
+class TextSearcher extends RegexSearcher
 {
     /**
-     * @var string
+     * @param string $text Подстрока для поиска
      */
-    private $text;
-
     public function __construct(string $text)
     {
-        $this->text = $text;
-    }
+        $pattern = '/'.preg_quote($text, '/').'/';
 
-    public function find(string $content)
-    {
-        $lastPos = 0;
-        $positions = [];
-
-        while (($lastPos = strpos($content, $this->text, $lastPos)) !== false) {
-            $positions[] = $lastPos;
-            $lastPos = $lastPos + strlen($this->text);
-        }
-
-        return $positions;
+        parent::__construct($pattern);
     }
 }

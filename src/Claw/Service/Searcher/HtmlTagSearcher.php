@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace Claw\Service\Searcher;
 
+/**
+ * Поиск тегов внутри html-документов.
+ *
+ * Так как поиск тегов по регулярным выражениям череват
+ * ложными срабатываниями (теги внутри комментариев,
+ * внутри javascript) этот способ более предпочтителен.
+ */
 class HtmlTagSearcher implements SearcherInterface
 {
     /**
@@ -11,11 +18,17 @@ class HtmlTagSearcher implements SearcherInterface
      */
     private $tag;
 
+    /**
+     * @param string $tag
+     */
     public function __construct(string $tag)
     {
         $this->tag = $tag;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function find(string $content)
     {
         // Workaround for DOMDocument encoding:
@@ -48,6 +61,13 @@ class HtmlTagSearcher implements SearcherInterface
         return $matches;
     }
 
+    /**
+     * Возвращает строку с ошибками libxml.
+     *
+     * @param array $errors
+     *
+     * @return string
+     */
     private function handleLibXmlErrors(array $errors)
     {
         $messages = [];

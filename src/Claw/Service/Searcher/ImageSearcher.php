@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Claw\Service\Searcher;
 
-class ImageSearcher extends HtmlTagSearcher
+/**
+ * Поиск элеменов изображений вида <img>.
+ */
+class ImageSearcher extends RegexSearcher
 {
-    const IMAGE_TAG = 'img';
+    const IMAGE_PATTERN = '/<img[^>]+>/i';
 
     public function __construct()
     {
-        parent::__construct(self::IMAGE_TAG);
+        parent::__construct(self::IMAGE_PATTERN);
     }
 }

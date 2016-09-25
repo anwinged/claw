@@ -8,12 +8,15 @@
 
 namespace Claw\Service\Searcher;
 
-class LinkSearcher extends HtmlTagSearcher
+/**
+ * Поиск элементов со ссылками вида <a></a>.
+ */
+class LinkSearcher extends RegexSearcher
 {
-    const IMAGE_TAG = 'a';
+    const LINK_PATTERN = '/<a[^>]+>.*<\/a>/iU';
 
     public function __construct()
     {
-        parent::__construct(self::IMAGE_TAG);
+        parent::__construct(self::LINK_PATTERN);
     }
 }

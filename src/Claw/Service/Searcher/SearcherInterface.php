@@ -7,9 +7,11 @@ namespace Claw\Service\Searcher;
 interface SearcherInterface
 {
     /**
+     * Находит все необходимые совпадения внутри строки.
+     *
      * @param string $content
      *
-     * @return \string[]
+     * @return string[]
      */
     public function find(string $content);
 }
