@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace Claw;
 
-use Claw\Action\Search;
-use Claw\Action\Items;
-use Claw\Action\View;
-use Claw\Service\PageLoader;
+use Claw\Config\ActionProvider;
+use Claw\Config\ParameterProvider;
+use Claw\Config\ServiceProvider;
 use Claw\Service\Router\Router;
-use Claw\Service\SearcherFactory;
-use Claw\Service\SearchProcessor;
-use Claw\Service\SearchResultFactory;
-use Claw\Storage\SearchResultStorage;
-use League\Plates\Engine;
-use League\Plates\Extension\Asset;
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +22,19 @@ class App
     public function __construct()
     {
         $this->container = new Container();
-        self::initAppServices($this->container);
+
+        $rootPath = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..');
+        $sourcePath = $rootPath.DIRECTORY_SEPARATOR.'src';
+        $webPath = $rootPath.DIRECTORY_SEPARATOR.'web';
+
+        $this->container['appName'] = 'Claw';
+        $this->container['rootPath'] = $rootPath;
+        $this->container['sourcePath'] = $sourcePath;
+        $this->container['webPath'] = $webPath;
+
+        (new ParameterProvider())->register($this->container);
+        (new ServiceProvider())->register($this->container);
+        (new ActionProvider())->register($this->container);
     }
 
     public function get($path, $action)
@@ -116,101 +121,5 @@ class App
             $renderer->render('exception', ['exception' => $e]),
             Response::HTTP_INTERNAL_SERVER_ERROR
         );
-    }
-
-    private static function initAppServices(Container $container)
-    {
-        $rootPath = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..');
-        $sourcePath = $rootPath.DIRECTORY_SEPARATOR.'src';
-        $webPath = $rootPath.DIRECTORY_SEPARATOR.'web';
-
-        $container['appName'] = 'Claw';
-        $container['rootPath'] = $rootPath;
-        $container['sourcePath'] = $sourcePath;
-        $container['webPath'] = $webPath;
-
-        $container['db.host'] = 'localhost';
-        $container['db.name'] = 'claw';
-        $container['db.user'] = 'claw';
-        $container['db.pass'] = 'claw';
-
-        $container['request'] = $container->factory(function () {
-            return Request::createFromGlobals();
-        });
-
-        $container['response'] = $container->factory(function () {
-            return new Response();
-        });
-
-        $container['notFoundResponse'] = $container->factory(function ($c) {
-            /** @var Response $response */
-            $response = $c['response'];
-            $response->setStatusCode(Response::HTTP_NOT_FOUND);
-
-            return $response;
-        });
-
-        $container['router'] = function () {
-            return new Router();
-        };
-
-        $container['renderer'] = function ($c) {
-            $engine = new Engine($c['sourcePath']
-                .DIRECTORY_SEPARATOR.'Claw'
-                .DIRECTORY_SEPARATOR.'View'
-            );
-            $engine->addData(['appName' => $c['appName']]);
-            $engine->loadExtension(new Asset($c['webPath']));
-
-            return $engine;
-        };
-
-        $container['searcherFactory'] = function () {
-            return new SearcherFactory();
-        };
-
-        $container['pageLoader'] = function () {
-            return new PageLoader();
-        };
-
-        $container['pdo'] = function ($c) {
-            $dsn = sprintf('mysql:host=%s;dbname=%s', $c['db.host'], $c['db.name']);
-
-            $opt = [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-            ];
-
-            return new \PDO($dsn, $c['db.user'], $c['db.pass'], $opt);
-        };
-
-        $container['searchResultStorage'] = function ($c) {
-            return new SearchResultStorage($c['pdo']);
-        };
-
-        $container['searchResultFactory'] = function () {
-            return new SearchResultFactory();
-        };
-
-        $container['searchProcessor'] = function ($c) {
-            return new SearchProcessor(
-                $c['searcherFactory'],
-                $c['pageLoader'],
-                $c['searchResultStorage'],
-                $c['searchResultFactory']
-            );
-        };
-
-        $container['search'] = function ($c) {
-            return new Search($c['request'], $c['renderer'], $c['searchProcessor']);
-        };
-
-        $container['view'] = function ($c) {
-            return new View($c['request'], $c['renderer'], $c['searchResultStorage']);
-        };
-
-        $container['items'] = function ($c) {
-            return new Items($c['request'], $c['renderer'], $c['searchResultStorage']);
-        };
     }
 }
