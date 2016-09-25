@@ -29,6 +29,7 @@
            id="url"
            type="url"
            value="<?= $this->e($searchRequest->getUrl()) ?>"
+           maxlength="2000"
            placeholder="http://example.com"
            required
     >
@@ -49,7 +50,7 @@
 
   <div class="form__group js-text-group hidden">
     <label class="form__label" for="text">Текст:</label>
-    <textarea class="form__textarea" name="text" rows="3" id="text"><?= $this->e($searchRequest->getText()) ?></textarea>
+    <textarea class="form__textarea" name="text" rows="3" maxlength="255" id="text"><?= $this->e($searchRequest->getText()) ?></textarea>
   </div>
 
   <button id="search-submit-button" class="form__submit" type="submit">Найти</button>
