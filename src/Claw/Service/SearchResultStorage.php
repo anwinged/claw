@@ -8,16 +8,9 @@ class SearchResultStorage
 {
     private $pdo;
 
-    public function __construct()
+    public function __construct(\PDO $pdo)
     {
-        $dsn = 'mysql:host=localhost;dbname=claw';
-
-        $opt = [
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-        ];
-
-        $this->pdo = new \PDO($dsn, 'claw', 'claw', $opt);
+        $this->pdo = $pdo;
     }
 
     public function findAll()

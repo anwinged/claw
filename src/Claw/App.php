@@ -129,6 +129,11 @@ class App
         $container['sourcePath'] = $sourcePath;
         $container['webPath'] = $webPath;
 
+        $container['db.host'] = 'localhost';
+        $container['db.name'] = 'claw';
+        $container['db.user'] = 'claw';
+        $container['db.pass'] = 'claw';
+
         $container['request'] = $container->factory(function () {
             return Request::createFromGlobals();
         });
@@ -168,8 +173,19 @@ class App
             return new PageLoader();
         };
 
-        $container['searchResultStorage'] = function () {
-            return new SearchResultStorage();
+        $container['pdo'] = function ($c) {
+            $dsn = sprintf('mysql:host=%s;dbname=%s', $c['db.host'], $c['db.name']);
+
+            $opt = [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            ];
+
+            return new \PDO($dsn, $c['db.user'], $c['db.pass'], $opt);
+        };
+
+        $container['searchResultStorage'] = function ($c) {
+            return new SearchResultStorage($c['pdo']);
         };
 
         $container['searchResultFactory'] = function () {
