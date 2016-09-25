@@ -38,7 +38,7 @@ class View implements ActionInterface
 
         if (!$searchResult) {
             return new Response(
-                $this->renderer->render('no_record'),
+                $this->renderer->render('not_found', ['subject' => 'Запись']),
                 Response::HTTP_NOT_FOUND
             );
         }

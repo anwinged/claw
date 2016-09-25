@@ -3,6 +3,7 @@
 namespace Claw\Config;
 
 use Claw\Action\Items;
+use Claw\Action\RouteNotFound;
 use Claw\Action\Search;
 use Claw\Action\View;
 use Pimple\Container;
@@ -25,6 +26,10 @@ class ActionProvider implements ServiceProviderInterface
 
         $container['items'] = function ($c) {
             return new Items($c['request'], $c['renderer'], $c['searchResultStorage']);
+        };
+
+        $container['not_found'] = function ($c) {
+            return new RouteNotFound($c['renderer']);
         };
     }
 }
