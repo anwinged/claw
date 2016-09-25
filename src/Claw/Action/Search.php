@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Index implements ActionInterface
+class Search implements ActionInterface
 {
     private $request;
 
@@ -49,7 +49,7 @@ class Index implements ActionInterface
             }
         }
 
-        $content = $this->renderer->render('index', [
+        $content = $this->renderer->render('search', [
             'searchRequest' => $searchRequest,
             'errors' => $errors,
         ]);

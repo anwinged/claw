@@ -4,11 +4,11 @@ require_once '../vendor/autoload.php';
 
 $app = new Claw\App();
 
-$app->get('^/$', 'index');
-$app->post('^/$', 'index');
+$app->get('^/$', 'search');
+$app->post('^/$', 'search');
 
-$app->get('^/index', 'index');
-$app->post('^/index', 'index');
+$app->get('^/index', 'search');
+$app->post('^/index', 'search');
 
 $app->get('^/view', 'view');
 $app->get('^/items', 'items');

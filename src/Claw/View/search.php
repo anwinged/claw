@@ -58,5 +58,5 @@
 <!-- -->
 
 <?php $this->start('js') ?>
-  <script src="<?= $this->asset('/js/index.js') ?>"></script>
+  <script src="<?= $this->asset('/js/search.js') ?>"></script>
 <?php $this->stop() ?>

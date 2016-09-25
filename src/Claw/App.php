@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Claw;
 
-use Claw\Action\Index;
+use Claw\Action\Search;
 use Claw\Action\Items;
 use Claw\Action\View;
 use Claw\Service\PageLoader;
@@ -175,8 +175,8 @@ class App
             return new SearchProcessor($c['searcherFactory'], $c['pageLoader'], $c['searchResultStorage']);
         };
 
-        $container['index'] = function ($c) {
-            return new Index($c['request'], $c['renderer'], $c['searchProcessor']);
+        $container['search'] = function ($c) {
+            return new Search($c['request'], $c['renderer'], $c['searchProcessor']);
         };
 
         $container['view'] = function ($c) {
