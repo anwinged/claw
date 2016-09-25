@@ -22,8 +22,6 @@ class Route
     private $action;
 
     /**
-     * Route constructor.
-     *
      * @param string $method
      * @param string $path
      * @param string $action
@@ -38,7 +36,7 @@ class Route
     /**
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
@@ -46,7 +44,7 @@ class Route
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -54,7 +52,7 @@ class Route
     /**
      * @return string
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }

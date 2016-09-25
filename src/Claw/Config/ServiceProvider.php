@@ -6,6 +6,7 @@ namespace Claw\Config;
 
 use Claw\Service\ErrorHandler;
 use Claw\Service\PageLoader;
+use Claw\Service\Router\RouteMatcher;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
 use Claw\Service\SearchProcessor;
@@ -35,8 +36,12 @@ class ServiceProvider implements ServiceProviderInterface
             return new Response();
         });
 
-        $container['router'] = function () {
-            return new Router();
+        $container['routeMatcher'] = function () {
+            return new RouteMatcher();
+        };
+
+        $container['router'] = function ($c) {
+            return new Router($c['routeMatcher']);
         };
 
         $container['renderer'] = function ($c) {

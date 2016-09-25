@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Claw\Service\Router;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestMatcher;
 
 class Router
 {
@@ -13,6 +12,19 @@ class Router
      * @var Route[]
      */
     private $routes = [];
+
+    /**
+     * @var RouteMatcher
+     */
+    private $matcher;
+
+    /**
+     * @param RouteMatcher $matcher
+     */
+    public function __construct(RouteMatcher $matcher)
+    {
+        $this->matcher = $matcher;
+    }
 
     /**
      * @param string $method
@@ -32,26 +44,11 @@ class Router
     public function findRoute(Request $request)
     {
         foreach ($this->routes as $route) {
-            if ($this->matches($request, $route)) {
+            if ($this->matcher->matches($route, $request)) {
                 return $route;
             }
         }
 
         return null;
-    }
-
-    /**
-     * @param Request $request
-     * @param Route   $route
-     *
-     * @return bool
-     */
-    private function matches(Request $request, Route $route)
-    {
-        $requestMatcher = new RequestMatcher();
-        $requestMatcher->matchMethod([$route->getMethod()]);
-        $requestMatcher->matchPath($route->getPath());
-
-        return $requestMatcher->matches($request);
     }
 }
