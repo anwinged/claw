@@ -15,7 +15,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th></th>
+      <th>#</th>
       <th>Адрес</th>
       <th>Тип</th>
       <th>Результаты</th>

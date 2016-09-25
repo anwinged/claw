@@ -34,7 +34,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Индекс</th>
+      <th>#</th>
       <th>Совпадение</th>
     </tr>
   </thead>
