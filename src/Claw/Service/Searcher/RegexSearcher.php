@@ -23,7 +23,7 @@ class RegexSearcher implements SearcherInterface
     /**
      * {@inheritdoc}
      */
-    public function find(string $content)
+    public function find(string $content): array
     {
         $matches = [];
 

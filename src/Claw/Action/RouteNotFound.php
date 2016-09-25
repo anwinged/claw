@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RouteNotFound implements ActionInterface
 {
+    /**
+     * @var Engine
+     */
     private $renderer;
 
     public function __construct(Engine $renderer)
@@ -15,7 +18,10 @@ class RouteNotFound implements ActionInterface
         $this->renderer = $renderer;
     }
 
-    public function run()
+    /**
+     * {@inheritdoc}
+     */
+    public function run(): Response
     {
         return new Response(
             $this->renderer->render('not_found', ['subject' => 'Страница']),

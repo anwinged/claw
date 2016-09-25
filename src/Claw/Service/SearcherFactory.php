@@ -16,7 +16,7 @@ class SearcherFactory
      *
      * @return SearcherInterface
      */
-    public function createParser($searchType, $text = null)
+    public function createParser($searchType, $text = null): SearcherInterface
     {
         switch ($searchType) {
             case SearchType::LINK:

@@ -29,7 +29,7 @@ class HtmlTagSearcher implements SearcherInterface
     /**
      * {@inheritdoc}
      */
-    public function find(string $content)
+    public function find(string $content): array
     {
         // Workaround for DOMDocument encoding:
         // https://gist.github.com/Xeoncross/9401853

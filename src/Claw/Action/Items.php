@@ -13,10 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Items implements ActionInterface
 {
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * @var Engine
+     */
     private $renderer;
 
+    /**
+     * @var SearchResultStorage
+     */
     private $storage;
 
     public function __construct(
@@ -29,7 +38,10 @@ class Items implements ActionInterface
         $this->storage = $storage;
     }
 
-    public function run()
+    /**
+     * {@inheritdoc}
+     */
+    public function run(): Response
     {
         $searchResults = $this->storage->findAll();
 

@@ -23,7 +23,7 @@ class ErrorHandler implements ErrorHandlerInterface
         $this->view = $view;
     }
 
-    public function handle(\Exception $e)
+    public function handle(\Exception $e): Response
     {
         return new Response(
             $this->renderer->render($this->view, ['exception' => $e]),

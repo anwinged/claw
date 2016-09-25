@@ -28,7 +28,7 @@ class SearchType
         self::TEXT => 'Текст',
     ];
 
-    public static function getTypeNames()
+    public static function getTypeNames(): array
     {
         return self::$names;
     }
@@ -38,7 +38,7 @@ class SearchType
      *
      * @return mixed
      */
-    public static function getName($type)
+    public static function getName($type): string
     {
         if (!isset(self::$names[$type])) {
             throw new \RuntimeException(sprintf('Unknown type %s', $type));
@@ -52,7 +52,7 @@ class SearchType
      *
      * @return bool
      */
-    public static function isAvailable($type)
+    public static function isAvailable($type): bool
     {
         return isset(self::$availableTypes[$type]);
     }
@@ -60,7 +60,7 @@ class SearchType
     /**
      * @return array
      */
-    public static function getAvailableTypes()
+    public static function getAvailableTypes(): array
     {
         return self::$availableTypes;
     }

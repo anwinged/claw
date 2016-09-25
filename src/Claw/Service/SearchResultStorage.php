@@ -13,7 +13,7 @@ class SearchResultStorage
         $this->pdo = $pdo;
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         $query = 'SELECT * FROM search_result';
 
@@ -50,7 +50,7 @@ class SearchResultStorage
         $result->setId($this->pdo->lastInsertId());
     }
 
-    private function hydrate(array $record)
+    private function hydrate(array $record): SearchResult
     {
         $entity = new SearchResult();
         $entity->setId($record['id']);
@@ -62,7 +62,7 @@ class SearchResultStorage
         return $entity;
     }
 
-    private function dump(SearchResult $result)
+    private function dump(SearchResult $result): array
     {
         return [
             'url' => $result->getUrl(),

@@ -49,7 +49,7 @@ class SearchProcessor
      *
      * @return SearchResult
      */
-    public function process(SearchRequest $searchRequest)
+    public function process(SearchRequest $searchRequest): SearchResult
     {
         /** @var SearcherInterface $searcher */
         $searcher = $this->searcherFactory->createParser(

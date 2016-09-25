@@ -14,10 +14,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Search implements ActionInterface
 {
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * @var Engine
+     */
     private $renderer;
 
+    /**
+     * @var SearchProcessor
+     */
     private $searchProcessor;
 
     public function __construct(
@@ -30,7 +39,10 @@ class Search implements ActionInterface
         $this->searchProcessor = $searchProcessor;
     }
 
-    public function run()
+    /**
+     * {@inheritdoc}
+     */
+    public function run(): Response
     {
         $searchRequest = new SearchRequest();
         $searchRequestForm = new SearchRequestForm($searchRequest);

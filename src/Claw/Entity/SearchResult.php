@@ -38,7 +38,7 @@ class SearchResult
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -118,7 +118,7 @@ class SearchResult
     /**
      * @return int
      */
-    public function getMatchCount()
+    public function getMatchCount(): int
     {
         return count($this->matches);
     }
@@ -126,7 +126,7 @@ class SearchResult
     /**
      * @return bool
      */
-    public function hasMatches()
+    public function hasMatches(): bool
     {
         return (bool) $this->matches;
     }
@@ -134,7 +134,7 @@ class SearchResult
     /**
      * @return mixed
      */
-    public function getTypeName()
+    public function getTypeName(): string
     {
         return SearchType::getName($this->getType());
     }

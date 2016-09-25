@@ -7,12 +7,12 @@ use Claw\Entity\SearchResult;
 
 class SearchResultFactory
 {
-    public function create()
+    public function create(): SearchResult
     {
         return new SearchResult();
     }
 
-    public function createFromSearchRequest(SearchRequest $request)
+    public function createFromSearchRequest(SearchRequest $request): SearchResult
     {
         $result = $this->create();
         $result->setUrl($request->getUrl());

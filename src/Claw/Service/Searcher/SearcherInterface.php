@@ -13,5 +13,5 @@ interface SearcherInterface
      *
      * @return string[]
      */
-    public function find(string $content);
+    public function find(string $content): array;
 }

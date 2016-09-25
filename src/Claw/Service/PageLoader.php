@@ -15,7 +15,7 @@ class PageLoader
      *
      * @return string
      */
-    public function getContent($url)
+    public function getContent($url): string
     {
         $options = [
             CURLOPT_CUSTOMREQUEST => 'GET',
@@ -66,7 +66,7 @@ class PageLoader
      *
      * @return string
      */
-    private function convertContent(string $content, string $contentType)
+    private function convertContent(string $content, string $contentType): string
     {
         unset($charset);
 

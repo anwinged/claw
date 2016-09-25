@@ -16,10 +16,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class View implements ActionInterface
 {
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * @var Engine
+     */
     private $renderer;
 
+    /**
+     * @var SearchResultStorage
+     */
     private $storage;
 
     public function __construct(
@@ -32,7 +41,10 @@ class View implements ActionInterface
         $this->storage = $storage;
     }
 
-    public function run()
+    /**
+     * {@inheritdoc}
+     */
+    public function run(): Response
     {
         $searchResult = $this->storage->find($this->request->query->getInt('id'));
 

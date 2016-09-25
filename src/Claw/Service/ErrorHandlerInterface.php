@@ -16,5 +16,5 @@ interface ErrorHandlerInterface
      *
      * @return Response
      */
-    public function handle(\Exception $e);
+    public function handle(\Exception $e): Response;
 }
