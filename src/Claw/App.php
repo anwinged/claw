@@ -11,6 +11,7 @@ use Claw\Service\PageLoader;
 use Claw\Service\Router\Router;
 use Claw\Service\SearcherFactory;
 use Claw\Service\SearchProcessor;
+use Claw\Service\SearchResultFactory;
 use Claw\Storage\SearchResultStorage;
 use League\Plates\Engine;
 use League\Plates\Extension\Asset;
@@ -171,8 +172,17 @@ class App
             return new SearchResultStorage();
         };
 
+        $container['searchResultFactory'] = function () {
+            return new SearchResultFactory();
+        };
+
         $container['searchProcessor'] = function ($c) {
-            return new SearchProcessor($c['searcherFactory'], $c['pageLoader'], $c['searchResultStorage']);
+            return new SearchProcessor(
+                $c['searcherFactory'],
+                $c['pageLoader'],
+                $c['searchResultStorage'],
+                $c['searchResultFactory']
+            );
         };
 
         $container['search'] = function ($c) {

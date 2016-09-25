@@ -24,17 +24,27 @@ class SearchProcessor
      */
     private $storage;
 
+    /**
+     * @var SearchResultFactory
+     */
+    private $factory;
+
     public function __construct(
         SearcherFactory $searcherFactory,
         PageLoader $pageRetriever,
-        SearchResultStorage $storage
+        SearchResultStorage $storage,
+        SearchResultFactory $factory
     ) {
         $this->searcherFactory = $searcherFactory;
         $this->pageLoader = $pageRetriever;
         $this->storage = $storage;
+        $this->factory = $factory;
     }
 
     /**
+     * Обрабатывает запрос поиска и возвращает результат,
+     * содержащий данные запроса и все найденные вхождения.
+     *
      * @param SearchRequest $searchRequest
      *
      * @return SearchResult
@@ -49,10 +59,7 @@ class SearchProcessor
 
         $content = $this->pageLoader->getContent($searchRequest->getUrl());
 
-        $searchResult = new SearchResult();
-        $searchResult->setUrl($searchRequest->getUrl());
-        $searchResult->setType($searchRequest->getType());
-        $searchResult->setText($searchRequest->getText());
+        $searchResult = $this->factory->createFromSearchRequest($searchRequest);
         $searchResult->setMatches($searcher->find($content));
 
         $this->storage->insert($searchResult);
