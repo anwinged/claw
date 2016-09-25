@@ -19,7 +19,6 @@
       <th>Адрес</th>
       <th>Тип</th>
       <th>Результаты</th>
-      <th>Результаты</th>
     </tr>
   </thead>
   <tbody>
@@ -29,18 +28,15 @@
           <?= $this->e($index) ?>
         </td>
         <td>
-          <span title="<?= $this->e($searchResult->getUrl()) ?>">
+          <a href="/view?id=<?= $searchResult->getId() ?>" title="<?= $this->e($searchResult->getUrl()) ?>">
             <?= $this->e($searchResult->getUrl()) ?>
-          </span>
+          </a>
         </td>
         <td>
           <?= $this->e($searchResult->getTypeName()) ?>
         </td>
         <td>
           <?= $this->e($searchResult->getMatchCount()) ?>
-        </td>
-        <td>
-          <a href="/view?id=<?= $searchResult->getId() ?>">Посмотреть</a>
         </td>
       </tr>
     <?php endforeach; ?>
