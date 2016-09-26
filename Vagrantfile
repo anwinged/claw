@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# For installing ansible_local from pip on guest
+Vagrant.require_version ">= 1.8.3"
+
+
 Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/trusty64"
