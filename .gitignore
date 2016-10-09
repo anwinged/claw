@@ -1,4 +1,5 @@
 .vagrant
-.retry
 /log/
 /vendor/
+
+*.retry
