@@ -42,3 +42,11 @@
     mode: 0644
     recurse: yes
   notify: restart PHP-FPM
+
+- name: Set permissions on socket - mode
+  lineinfile:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    line: 'env[CHARSET] = UTF-8'
+    state: present
+  become: yes
+  notify: restart PHP-FPM
