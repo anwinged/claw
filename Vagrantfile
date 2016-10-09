@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV["LC_ALL"] = "en_US.UTF-8"
+
 # For installing ansible_local from pip on guest
 Vagrant.require_version ">= 1.8.3"
 
