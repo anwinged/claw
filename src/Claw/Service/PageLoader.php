@@ -9,11 +9,11 @@ class PageLoader
     /**
      * Возвращает содержимое страницы по переданному адресу.
      *
-     * @param $url
+     * @param string $url
      *
      * @return string
      */
-    public function getContent($url): string
+    public function getContent(string $url): string
     {
         $options = [
             CURLOPT_CUSTOMREQUEST => 'GET',
